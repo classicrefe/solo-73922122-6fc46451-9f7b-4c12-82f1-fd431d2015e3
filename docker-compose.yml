@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    image: street-archive-api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: sqlite:////data/street_archive.db
+      VERIFY_DELAY_SECONDS: "0.2"   # 模拟核查耗时；核查期间资料仍可改动
+    volumes:
+      - archive-data:/data
+    restart: unless-stopped
+
+volumes:
+  archive-data:
